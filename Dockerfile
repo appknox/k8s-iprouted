@@ -4,7 +4,7 @@ WORKDIR /go/src/app
 
 COPY . .
 
-ENV LABEL_SELECTOR="k8s-iprouted/routable=true"
+ENV LABEL_SELECTOR="k8s-iprouted/routeable=true"
 
 ENV SUBNET="192.168.0.0/24"
 

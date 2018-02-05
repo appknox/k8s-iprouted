@@ -58,18 +58,13 @@ func main() {
 
 		out, err := exec.Command(
 			"ip", "route", "delete", subnet).CombinedOutput()
-		// out, err := exec.Command(
-		// 	"echo", "ip route delete", subnet).CombinedOutput()
 		if err != nil {
 			log.Println("ERROR ip route delete:", err)
-			continue
 		}
 		log.Println("IP ROUTE DELETE:", string(out[:]))
 
 		out, err = exec.Command(
 			"ip", "route", "add", subnet, "via", clientIP).CombinedOutput()
-		// out, err = exec.Command(
-		// 	"echo", "ip route add", subnet, "via", clientIP).CombinedOutput()
 
 		if err != nil {
 			log.Println("ERROR ip route add:", err)
@@ -83,16 +78,6 @@ func main() {
 }
 
 func getKubeConfig() *rest.Config {
-	// var kubeconfig *string
-	// if home := homeDir(); home != "" {
-	// 	kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-	// } else {
-	// 	kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-	// }
-	// flag.Parse()
-
-	// use the current context in kubeconfig
-	// config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	config, err := rest.InClusterConfig()
 
 	if err != nil {
@@ -117,10 +102,3 @@ func getPods(clientset *kubernetes.Clientset, labelSelector string) []string {
 	}
 	return clientIps
 }
-
-// func homeDir() string {
-// 	if h := os.Getenv("HOME"); h != "" {
-// 		return h
-// 	}
-// 	return os.Getenv("USERPROFILE") // windows
-// }
