@@ -24,11 +24,10 @@ func main() {
 	labelselector := os.Args[1]
 	subnetinput := os.Args[2]
 	_, ipnet, err := net.ParseCIDR(subnetinput)
-	subnet := ipnet.String()
 	if err != nil {
 		log.Fatalln(err)
 	}
-
+	subnet := ipnet.String()
 	config := getKubeConfig()
 	clientset := kubernetes.NewForConfigOrDie(config)
 	rateLimiter := flowcontrol.NewTokenBucketRateLimiter(0.1, 1)
