@@ -59,19 +59,27 @@ func main() {
 		out, err := exec.Command(
 			"ip", "route", "delete", subnet).CombinedOutput()
 		if err != nil {
-			log.Println("ERROR ip route delete:", err)
+			log.Println(
+				"ERROR ip route delete:", err,
+				"COMMAND: ip route delete", subnet,
+			)
 		}
 		log.Println("IP ROUTE DELETE:", string(out[:]))
 
 		out, err = exec.Command(
 			"ip", "route", "add", subnet, "via", clientIP).CombinedOutput()
 
+		log.Println("IP ROUTE ADD:", string(out[:]))
+
 		if err != nil {
-			log.Println("ERROR ip route add:", err)
+			log.Println(
+				"ERROR ip route add:", err,
+				"COMMAND: ip route add", subnet,
+				"via", clientIP,
+			)
 			continue
 		}
 
-		log.Println("IP ROUTE ADD:", string(out[:]))
 		log.Println("IP route added for subnet ", subnet, "via", clientIP)
 		knowclientIP = clientIP
 	}
